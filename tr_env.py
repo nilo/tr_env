@@ -3,7 +3,7 @@
 from pathlib import Path
 import os, re, argparse, subprocess
 
-def tr_compile(env, descompile):
+def tr_compile(env, decompile):
     p = Path('.')
     lineNumber = 0
     startLine = 0
@@ -29,7 +29,7 @@ def tr_compile(env, descompile):
                         openBracket += 1
                     if patternCloseBracket.search(line):
                         closeBracket += 1
-                    if (descompile == True):
+                    if (decompile == True):
                         if(line[:1] == '#'):
                             regex = str(startLine) + 's/^\#//g'
                     else:
@@ -55,7 +55,7 @@ def run_tr(cmd):
     subprocess.run(cmd.split(' '))
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description='Compile/Descompile your Terraform to according Environment.')
+    parser = argparse.ArgumentParser(description='Compile/Decompile your Terraform to according Environment.')
     parser.add_argument('-e', action='store', dest='env', required=False, metavar='[prod|stag|...]',
                        help='Environment name. If not present looking for TF_VAR_environment environment variable.')
     parser.add_argument('-t', action='store', dest='tr_cmd', required=True, metavar='terraform [plan|apply|version|...]',
@@ -69,9 +69,9 @@ if __name__ == "__main__":
             args['env'] = os.environ['TF_VAR_environment']
 
         print("Compiling code to Environment: " + args['env'])
-        tr_compile(args['env'], descompile=False)
+        tr_compile(args['env'], decompile=False)
         print("Running Terraform: " + args['tr_cmd'])
         run_tr(args['tr_cmd'])
         print("Descompiling code to Environment: " + args['env'])
-        tr_compile(args['env'], descompile=True)
+        tr_compile(args['env'], decompile=True)
         print("Done! :)")
