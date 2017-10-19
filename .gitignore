@@ -1,0 +1,18 @@
+# General files
+.DS_Store
+.DS_Store?
+._*
+.Trashes
+ehthumbs.db
+Thumbs.db
+.Spotlight-V100
+*.dll
+*.exe
+*.backup
+*.log
+*.bak
+*~
+.*.swp
+*.iml
+*.test
+.gitconfig
